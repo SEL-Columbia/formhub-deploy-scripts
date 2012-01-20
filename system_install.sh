@@ -15,11 +15,11 @@ sudo easy_install pip
 cd ~
 mkdir bin
 cd bin
-git clone https://github.com/modilabs/formhub_deploy_scripts.git
-#chmod whatever .
+git clone https://github.com/modilabs/formhub-deploy-scripts.git
+sudo chmod u+x .
 cd ~
 
-echo "sh ~/bin/bash_profile_extender.sh" >> ~/.bashrc
+echo "/bin/bash ~/bin/bash_profile_extender.sh" >> ~/.bashrc
 source ~/.bashrc
 
 # create a directory for formhub
@@ -41,6 +41,6 @@ pip install -r requirements.pip
 python manage.py syncdb
 python manage.py migrate
 
-#visudo priveleges
-sudo visudo
+# sudo privileges to run server in screen
+sudo echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' >> /etc/sudoers
 
