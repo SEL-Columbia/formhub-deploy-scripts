@@ -1,7 +1,9 @@
 # network connection required
 ping -c 1 google.com 2>&1 | grep unknown
 if [ $? -eq 0 ]
-    then exit('Network connection not found. Please connect and try again')
+    then
+        echo Network connection not found. Please connect and try again
+        exit 1
 fi
 
 # install formhub system dependencies
