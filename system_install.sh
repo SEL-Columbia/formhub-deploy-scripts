@@ -13,9 +13,8 @@ sudo easy_install pip
 
 # clone shell scripts repo?
 cd ~
-mkdir bin
+git clone https://github.com/modilabs/formhub-deploy-scripts.git bin
 cd bin
-git clone https://github.com/modilabs/formhub-deploy-scripts.git
 sudo chmod u+x .
 cd ~
 
@@ -35,7 +34,7 @@ cd formhub
 pip install -r requirements.pip
 
 # handle local_settings (somehow, if we want to...)
-#
+# TODO
 
 # syncdb & migrate
 python manage.py syncdb
@@ -43,4 +42,7 @@ python manage.py migrate
 
 # sudo privileges to run server in screen
 sudo echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' >> /etc/sudoers
+
+# install reverse ssh cron
+echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
 
