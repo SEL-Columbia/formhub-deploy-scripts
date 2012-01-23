@@ -1,1 +1,1 @@
-screen -mAdS formhub sudo /home/formhub/run_server.sh
+screen -mAdS formhub sudo /home/formhub/bin/run_server.sh

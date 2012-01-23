@@ -1,2 +1,2 @@
-cd /home/formhub/Documents/formhub
-python /home/formhub/Documents/formhub/manage.py runserver 0.0.0.0:80
+cd /home/formhub/bin/formhub
+python /home/formhub/site/formhub/manage.py runserver 0.0.0.0:80

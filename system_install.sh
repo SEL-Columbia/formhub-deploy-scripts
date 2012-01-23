@@ -48,3 +48,7 @@ echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a
 # install reverse ssh cron
 echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
 
+# start server on boot
+
+# start server
+
