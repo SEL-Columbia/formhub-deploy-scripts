@@ -43,7 +43,7 @@ python manage.py syncdb
 python manage.py migrate
 
 # sudo privileges to run server in screen
-sudo echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' >> /etc/sudoers
+echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a /etc/sudoers
 
 # install reverse ssh cron
 echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
