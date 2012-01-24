@@ -1,1 +1,0 @@
-screen -XS formhub quit

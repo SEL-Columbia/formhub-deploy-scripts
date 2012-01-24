@@ -9,6 +9,7 @@ fi
 # install formhub system dependencies
 sudo apt-get -qq update
 sudo apt-get -qq install git-core
+sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
 
 # install python pip installation tool
@@ -42,8 +43,8 @@ sudo pip install -r requirements.pip
 # TODO
 
 # syncdb & migrate
-python manage.py syncdb --noinput
-python manage.py migrate --noinput
+python manage.py syncdb --noinput -v0
+python manage.py migrate --noinput -v0
 
 # sudo privileges to run server in screen
 echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a /etc/sudoers > /dev/null
@@ -52,11 +53,11 @@ echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a
 echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
 
 # start server on boot
-echo 'sudo -u formhub /home/formhub/bin/screen_server.sh' | sudo tee /etc/init.d/server > /dev/null
-sudo update-rc.d server defaults
+sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
+sudo update-rc.d formhub defaults
 
 # start server now
-/bin/bash screen_server.sh
+sudo /etc/init.d/formhub start
 
 # start adhoc network
 /bin/bash /home/formhub/bin/adhoc.sh
