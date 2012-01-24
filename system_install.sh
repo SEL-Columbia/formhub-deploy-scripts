@@ -4,6 +4,8 @@ if [ $? -eq 0 ]
 then
     echo Network connection not found. Please connect and try again
     exit 1
+else
+    echo Network connection found.  Installing...
 fi
 
 # install formhub system dependencies
@@ -54,7 +56,8 @@ echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | 
 
 # start server on boot
 sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
-sudo update-rc.d formhub defaults
+sudo chmod u+x /etc/init.d/formhub
+sudo update-rc.d formhub formhub start 20 3 4 5 . stop 20 0 1 2 6 .
 
 # create sym links
 sudo ln -s /home/formhub/bin/start_server.sh ~/Desktop/start-server
@@ -67,13 +70,13 @@ sudo /etc/init.d/formhub start
 
 # confirm install
 echo
-if [ -d ~/site/formhub ] && [ -f /etc/init.d/server ]
+if [ -d ~/site/formhub ] && [ -f /etc/init.d/formhub]
 then
     echo Installation succeeded.
     echo The server is now running at http://localhost
     echo
-    echo To start the wireless network run: sudo /etc/init.d/formhub adhoc-up
-    echo To stop the wireless network run: sudo /etc/init.d/formhub adhoc-down
+    echo To start the wireless network use click the links on your desktop,
+    echo then click "Run in Terminal" in the window that appears.
 else
     echo Installation failed.
 fi
