@@ -1,5 +1,5 @@
 # network connection required
-ping -c 1 google.com 2>&1 | grep unknown
+ping -c 1 google.com 2>&1 | grep unknown > /dev/null
 if [ $? -eq 0 ]
 then
     echo Network connection not found. Please connect and try again
