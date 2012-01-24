@@ -10,7 +10,7 @@ sudo iwconfig eth1 channel 4
 sudo iwconfig eth1 essid formhub_local
 # set WEP key
 sudo iwconfig eth1 key 1234567890
-sudo iwconfig eth1 commit
+sudo iwconfig eth1 commit > /dev/null 2>&1
 
 if [ $? -ne 0 ]
 then
