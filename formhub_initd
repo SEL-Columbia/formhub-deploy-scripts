@@ -27,14 +27,10 @@ ARGV="$@"
 case "${1}" in
     start)
         sudo -u formhub screen -mAdS formhub sudo /home/formhub/bin/run_server.sh
-        /bin/bash /home/formhub/bin/adhoc.sh
         ;;
 
     stop)
         sudo -u formhub screen -XS formhub quit
-        sudo rm -f /var/lib/NetworkManager/NetworkManager.state
-        sudo service network-manager stop > /dev/null
-        sudo service network-manager start
         ;;
 
     restart)
@@ -43,16 +39,22 @@ case "${1}" in
         ${0} start
         ;;
 
-    reload)
-        ${0} restart
-        ;;
-
     status)
         screen -ls
         ;;
 
+    adhoc-up)
+        /bin/bash /home/formhub/bin/adhoc.sh
+        ;;
+
+    adhoc-down)
+        sudo rm -f /var/lib/NetworkManager/NetworkManager.state
+        sudo service network-manager stop > /dev/null 2>&1
+        sudo service network-manager start
+        ;;
+
     *)
-        echo "Usage: ${0} {start|stop|restart|reload|status}"
+        echo "Usage: ${0} {start|stop|restart|status|adhoc-up|adhoc-down}"
         exit 1
         ;;
 esac

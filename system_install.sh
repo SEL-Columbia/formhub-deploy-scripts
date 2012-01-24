@@ -56,17 +56,24 @@ echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | 
 sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
 sudo update-rc.d formhub defaults
 
+# create sym links
+sudo ln -S /home/formhub/bin/start_server.sh ~/Desktop/start-server
+sudo ln -S /home/formhub/bin/stop_server.sh ~/Desktop/stop-server
+sudo ln -S /home/formhub/bin/start_adhoc.sh ~/Desktop/start-adhoc-network
+sudo ln -S /home/formhub/bin/stop_adhoc.sh ~/Desktop/stop-adhoc-network
+
 # start server now
 sudo /etc/init.d/formhub start
-
-# start adhoc network
-/bin/bash /home/formhub/bin/adhoc.sh
 
 # confirm install
 echo
 if [ -d ~/site/formhub ] && [ -f /etc/init.d/server ]
 then
     echo Installation succeeded.
+    echo The server is now running at http://localhost
+    echo
+    echo To start the wireless network run: sudo /etc/init.d/formhub adhoc-up
+    echo To stop the wireless network run: sudo /etc/init.d/formhub adhoc-down
 else
     echo Installation failed.
 fi
