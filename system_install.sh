@@ -57,10 +57,10 @@ sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
 sudo update-rc.d formhub defaults
 
 # create sym links
-sudo ln -S /home/formhub/bin/start_server.sh ~/Desktop/start-server
-sudo ln -S /home/formhub/bin/stop_server.sh ~/Desktop/stop-server
-sudo ln -S /home/formhub/bin/start_adhoc.sh ~/Desktop/start-adhoc-network
-sudo ln -S /home/formhub/bin/stop_adhoc.sh ~/Desktop/stop-adhoc-network
+sudo ln -s /home/formhub/bin/start_server.sh ~/Desktop/start-server
+sudo ln -s /home/formhub/bin/stop_server.sh ~/Desktop/stop-server
+sudo ln -s /home/formhub/bin/start_adhoc.sh ~/Desktop/start-adhoc-network
+sudo ln -s /home/formhub/bin/stop_adhoc.sh ~/Desktop/stop-adhoc-network
 
 # start server now
 sudo /etc/init.d/formhub start
