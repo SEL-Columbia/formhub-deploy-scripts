@@ -61,7 +61,7 @@ echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | 
 # start server on boot
 sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
 sudo chmod u+x /etc/init.d/formhub
-sudow chown formhub:formhub /etc/init.d/formhub
+sudo chown formhub:formhub /etc/init.d/formhub
 sudo update-rc.d formhub start 20 2 3 4 5 . stop 20 0 1 6 .
 
 # create sym links
