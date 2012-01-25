@@ -13,6 +13,7 @@ sudo apt-get -qq update
 sudo apt-get -qq install git-core
 sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
+sudo apt-get -qq install default-jre
 
 # install python pip installation tool
 sudo easy_install pip
