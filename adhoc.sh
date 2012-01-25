@@ -25,6 +25,8 @@ else
     sudo ip link set eth1 up
     # set an IP address
     sudo ip addr add 192.168.1.1/16 dev eth1
+    # TODO subnet
+    # TODO dns
 
     # network created, add startup directive 
     echo 'sudo -u formhub /home/formhub/bin/adhoc.sh' | sudo tee /etc/init.d/adhoc > /dev/null

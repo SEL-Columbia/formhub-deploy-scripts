@@ -14,6 +14,7 @@ sudo apt-get -qq install git-core
 sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
 sudo apt-get -qq install default-jre
+sudo apt-get -qq install dhcp3-server
 
 # install python pip installation tool
 sudo easy_install pip
@@ -22,7 +23,7 @@ sudo easy_install pip
 cd ~
 git clone https://github.com/modilabs/formhub-deploy-scripts.git bin
 cd bin
-sudo chown formhub:formhub .
+sudo chown formhub:formhub .*
 sudo chmod u+x .
 cd ~
 
