@@ -65,6 +65,9 @@ sudo chmod u+x /etc/init.d/formhub
 sudo chown formhub:formhub /etc/init.d/formhub
 sudo update-rc.d formhub start 20 2 3 4 5 . stop 20 0 1 6 .
 
+# copy dhcpd conf
+sudo cp /home/formhub/bin/dhcpd.conf /etc/dhcp3/dhcpd.conf
+
 # create sym links
 sudo ln -s /home/formhub/bin/start_server.sh ~/Desktop/start-server
 sudo ln -s /home/formhub/bin/stop_server.sh ~/Desktop/stop-server
