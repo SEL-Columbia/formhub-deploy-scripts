@@ -23,7 +23,7 @@ sudo easy_install pip
 cd ~
 git clone https://github.com/modilabs/formhub-deploy-scripts.git bin
 cd bin
-sudo chown formhub:formhub .*
+sudo chown -R formhub:formhub *
 sudo chmod u+x .
 cd ~
 
