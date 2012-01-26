@@ -49,8 +49,7 @@ sudo pip install -r requirements.pip
 # TODO
 
 # syncdb & migrate
-python manage.py syncdb --noinput -v0
-python manage.py migrate --noinput -v0
+python manage.py bootstrap --noinput -v0
 sudo chown -R formhub:formhub .
 
 # sudo privileges to run server in screen
