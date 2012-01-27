@@ -11,7 +11,7 @@
 #ps ax |grep "$COMMAND" |grep -v "grep" > /dev/null 2>&1 || $COMMAND > /dev/null 2>&1
 
 createTunnel() {
-    ssh -N -f -R linode.mvpafrica.org:2210:localhost:22 -L19922:linode.mvpafrica.org:22 linode.mvpafrica.org
+    ssh -N -f -R linode.mvpafrica.org:2115:localhost:22 -L19922:linode.mvpafrica.org:22 formhub@linode.mvpafrica.org
     if [[ $? -eq 0 ]]; then
         echo SSH tunnel created successfully
     else
