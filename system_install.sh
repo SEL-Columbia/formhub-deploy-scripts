@@ -45,12 +45,10 @@ cd formhub
 # install site specific requirements
 sudo pip install -r requirements.pip
 
-# handle local_settings (somehow, if we want to...)
-# TODO
-
-# syncdb & migrate
-python manage.py bootstrap --noinput -v0
-sudo chown -R formhub:formhub .
+# set permissions and bootstrap
+touch formhub.sqlite3
+sudo chown -R formhub:formhub *
+sudo -u formhub python manage.py bootstrap -v0
 
 # sudo privileges to run server in screen
 echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a /etc/sudoers > /dev/null
