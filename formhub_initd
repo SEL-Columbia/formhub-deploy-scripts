@@ -1,0 +1,61 @@
+#!/bin/sh
+########################################################################
+#
+# Description : Initscript for formhub-local
+#
+# Authors     : Peter Lubell-Doughtie <pl2472@columbia.edu>
+#
+# Version     : 00.01
+#
+# Notes       : Borrowed from lsb-apache
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:             formhub-local
+# Required-Start:       $network
+# Required-Stop:        $network
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Formhub local server.
+# Description:          Formhub is a data collection service.
+#                       It is used to collect data.
+### END INIT INFO
+
+ARGV="$@"
+
+case "${1}" in
+    start)
+        sudo -u formhub screen -mAdS formhub sudo /home/formhub/bin/run_server.sh
+        ;;
+
+    stop)
+        sudo -u formhub screen -XS formhub quit
+        ;;
+
+    restart)
+        ${0} stop
+        sleep 1
+        ${0} start
+        ;;
+
+    status)
+        screen -ls
+        ;;
+
+    adhoc-up)
+        /bin/bash /home/formhub/bin/adhoc.sh
+        ;;
+
+    adhoc-down)
+        sudo rm -f /var/lib/NetworkManager/NetworkManager.state
+        sudo service network-manager stop > /dev/null 2>&1
+        sudo service network-manager start
+        ;;
+
+    *)
+        echo "Usage: ${0} {start|stop|restart|status|adhoc-up|adhoc-down}"
+        exit 1
+        ;;
+esac
+
