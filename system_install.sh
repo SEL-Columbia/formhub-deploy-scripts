@@ -46,8 +46,8 @@ cd formhub
 sudo pip install -r requirements.pip
 
 # set permissions and bootstrap
-touch formhub.sqlite3
 sudo chown -R formhub:formhub *
+sudo chown formhub:formhub .
 sudo -u formhub python manage.py bootstrap -v0
 
 # sudo privileges to run server in screen
