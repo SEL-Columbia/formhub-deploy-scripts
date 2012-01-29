@@ -9,5 +9,5 @@ sudo zip -r $PACKAGE_ZIP $PACKAGE_NAME
 #remove this next line before deploying
 sudo mv $PACKAGE_NAME files
 
-curl -F "zip_submission_file=@$PACKAGE_ZIP;content_type=application/zip" http://localhost/formhub/bulk-submission
+curl -F "zip_submission_file=@$PACKAGE_ZIP;type=application/zip" http://localhost/formhub/bulk-submission
 
