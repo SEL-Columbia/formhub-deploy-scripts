@@ -21,9 +21,9 @@ sudo easy_install pip
 
 # clone shell scripts repo?
 cd ~
-git clone https://github.com/modilabs/formhub-deploy-scripts.git bin
+sudo -u formhub git clone https://github.com/modilabs/formhub-deploy-scripts.git bin
 cd bin
-sudo chown -R formhub:formhub *
+sudo chown -R formhub:formhub * .
 sudo chmod u+x .
 cd ~
 
@@ -37,7 +37,7 @@ cd site
 sudo chown formhub:formhub .
 
 # clone git repo from 
-git clone https://github.com/modilabs/formhub.git -b local-node
+sudo -u formhub git clone https://github.com/modilabs/formhub.git -b local-node
 
 # change into site directory
 cd formhub
