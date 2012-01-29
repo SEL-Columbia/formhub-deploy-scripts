@@ -10,6 +10,7 @@ fi
 
 # install formhub system dependencies
 sudo apt-get -qq update
+sudo apt-get -qq install curl
 sudo apt-get -qq install git-core
 sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
