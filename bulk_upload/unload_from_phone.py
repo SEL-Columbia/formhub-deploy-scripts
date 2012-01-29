@@ -1,4 +1,6 @@
 import sys, os, shutil, glob, time, re, datetime
+from optparse import OptionParser
+
 CURRENT_FILE = os.path.abspath(__file__)
 CURRENT_DIR = os.path.dirname(CURRENT_FILE)
 UNLOAD_DIR = os.path.join(CURRENT_DIR, 'files')
@@ -80,8 +82,25 @@ def poll(replace_contents=False):
     time.sleep(1)
 
 def main():
-    print "Launching script to unload off phones..."
-    print "Press control-C to quit"
+    usage = "Usage: %prog [--flagged-arguments *...]"
+    parser = OptionParser(usage)
+    parser.add_option("-s", "--silent", dest="silent",
+                      action="store_true", default=False, help="suppress output")
+    parser.add_option("-D", "--delete-from-sdcard", dest="delete_from_sdcard",
+                      action="store_true", default=False, help="by default, data is moved to "
+                      "a hidden directory on  the sdcard. this option will delete the originals "
+                      "after copy is complete.")
+    parser.add_option("-C", "--clean-odk-dir", dest="clean_odk_dir",
+                      action="store", help="path to a prepared ODK directory."
+                      "(helpful for auto-loading forms onto phones.)")
+    parser.add_option("-o", "--output-directory", dest="output_directory",
+                      action="store", help="destination to unload the contents.")
+    parser.add_option("-u", "--unmount-drive", dest="unmount_drive",
+                      action="store_true", default=False, help="unmounts the drive after copying"
+                      " is complete.")
+    (options, args) = parser.parse_args()
+#    print "Launching script to unload off phones..."
+#    print "Press control-C to quit"
 #    if os.path.exists(SETTINGS['clean_odk_dir']):
 #        print "    --Found it!"
 #        replace_contents = True
@@ -93,12 +112,12 @@ def main():
 #        else:
 #            print "There was no 'y' in your response. Quitting."
 #            sys.exit(0)
-    while True:
-        try:
-            poll(replace_contents=SETTINGS['replace_contents'])
-        except KeyboardInterrupt:
-            print " ... Quitting"
-            sys.exit(0)
+#    while True:
+#        try:
+#            poll(replace_contents=SETTINGS['replace_contents'])
+#        except KeyboardInterrupt:
+#            print " ... Quitting"
+#            sys.exit(0)
 
 
 if __name__=="__main__":
