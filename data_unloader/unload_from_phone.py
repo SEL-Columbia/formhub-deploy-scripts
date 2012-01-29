@@ -84,41 +84,44 @@ def poll(replace_contents=False):
 def main():
     usage = "Usage: %prog [--flagged-arguments *...]"
     parser = OptionParser(usage)
-    parser.add_option("-s", "--silent", dest="silent",
-                      action="store_true", default=False, help="suppress output")
-    parser.add_option("-D", "--delete-from-sdcard", dest="delete_from_sdcard",
-                      action="store_true", default=False, help="by default, data is moved to "
-                      "a hidden directory on  the sdcard. this option will delete the originals "
-                      "after copy is complete.")
-    parser.add_option("-C", "--clean-odk-dir", dest="clean_odk_dir",
-                      action="store", help="path to a prepared ODK directory."
-                      "(helpful for auto-loading forms onto phones.)")
+#    parser.add_option("-s", "--silent", dest="silent",
+#                      action="store_true", default=False, help="suppress output")
+    parser.add_option("-B", "--preserve-on-sdcard", dest="preserve_on_sdcard",
+                      action="store_true", default=False, help="data can be moved to "
+                      "a hidden directory on  the sdcard. This is a measure to prevent data "
+                      "loss but should be avoided with sensitive data.")
     parser.add_option("-o", "--output-directory", dest="output_directory",
                       action="store", help="destination to unload the contents.")
+    parser.add_option("-r", "--remove-instances", dest="remove_instances",
+                      action="store_true", default=False,
+                      help="Cleans out the odk/instances and odk/metadata directories after "
+                           "unload is complete")
     parser.add_option("-u", "--unmount-drive", dest="unmount_drive",
                       action="store_true", default=False, help="unmounts the drive after copying"
                       " is complete.")
+    parser.add_option("--phone-id", dest="phone_id",
+                      action="store", help="A phone ID that is used to name the directory")
+    parser.add_option("--drive-path", dest="drive_path",
+                      action="store", help="The path to the drive that will be unloaded.")
+    parser.add_option("-C", "--clean-odk-dir", dest="clean_odk_dir",
+                      action="store", help="path to a prepared ODK directory."
+                      "(helpful for auto-loading forms onto phones.)")
+    parser.add_option("-D", "--debug", dest="debug",
+                      action="store_true", default=False, help="Prints debug information and then "
+                      "exits.")
+    
     (options, args) = parser.parse_args()
-#    print "Launching script to unload off phones..."
-#    print "Press control-C to quit"
-#    if os.path.exists(SETTINGS['clean_odk_dir']):
-#        print "    --Found it!"
-#        replace_contents = True
-#    else:
-#        print "    --Couldn't find it."
-#        response = raw_input("Would you like to proceed without replacing the ODK directory? [y/n] ")
-#        if re.search("y", response):
-#            print "Okay, cool."
-#        else:
-#            print "There was no 'y' in your response. Quitting."
-#            sys.exit(0)
-#    while True:
-#        try:
-#            poll(replace_contents=SETTINGS['replace_contents'])
-#        except KeyboardInterrupt:
-#            print " ... Quitting"
-#            sys.exit(0)
-
+    if len(args) > 0:
+        print "This script takes no unflagged arguments"
+        sys.exit(0)
+    if options.debug:
+        print "Debug:"
+        odict = eval(str(options))
+        for key in ["preserve_on_sdcard", "clean_odk_dir", \
+		"unmount_drive", "debug", "phone_id", "output_directory", \
+		"remove_instances", "drive_path"]:
+            print "%s: %s" % (key, odict[key])
+        sys.exit(0)
 
 if __name__=="__main__":
     main()
