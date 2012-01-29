@@ -22,16 +22,23 @@ unload_1() {
   unload_2 "$phone_id" "$options"
 }
 
-UNLOAD_PYSCRIPT_PATH="`which python` ~/pyscript.py "
+UNLOAD_PYSCRIPT_PATH="`which python` $FORMHUB_BIN_DIR/data_unloader/unload_from_phone.py "
 
 unload_2() {
   phone_id=$1
   search_str=$2
-  flag_str="--phone-id=$phone_id"
-  build_flagstr "Remove from ODK" "--remove"
-  build_flagstr "Preserve backup on sdcard" "--backup"
-  build_flagstr "Unmount" "--unmount"
-  $UNLOAD_PYSCRIPT_PATH$flag_str
+  flag_str="--phone-id=$phone_id --drive-path=$drive_path"
+  build_flagstr "Remove from ODK" "--remove-instances"
+  build_flagstr "Preserve backup on sdcard" "--preserve-on-sdcard"
+#  build_flagstr "Unmount" "--unmount-drive"
+  results=$($UNLOAD_PYSCRIPT_PATH --phone-id=$phone_id \
+        --drive-path=$drive_path $flag_str -D)
+  echo "$search_str" | grep "Unmount" > /dev/null
+  if [ $? = 0 ]; then
+    unmount_results=$(bu_unmount_odk_drive.sh $drive_path)
+    results="$results\n\n$unmount_results"
+  fi
+  echo "results: $results"
 }
 
 build_flagstr() {
@@ -46,9 +53,11 @@ build_flagstr() {
 cancel_cronjob() {
   # the cronjob will continue to bug the user...
   # TODO: cancel the behavior somehow
-  export IGNORE_ODK=1
+#  export IGNORE_ODK=1
   echo "Cancelling"
 }
+
+drive_path=$1
 
 unload_0
 
