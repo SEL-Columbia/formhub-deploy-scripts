@@ -29,8 +29,9 @@ sudo chmod u+x .
 cd ~
 
 # add bash profile settings
-cat ~/bin/bash_profile_extender.sh >> ~/.bashrc
-source ~/.bashrc
+#cat ~/bin/bash_profile_extender.sh >> ~/.bashrc
+#source ~/.bashrc
+cat "source ~/bin/bash_profile_extender.sh" >> /home/formhub/.bashrc
 
 # create a directory for formhub
 mkdir site
