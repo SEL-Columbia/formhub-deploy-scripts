@@ -10,6 +10,7 @@ fi
 
 # install formhub system dependencies
 sudo apt-get -qq update
+sudo apt-get -qq install curl
 sudo apt-get -qq install git-core
 sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
@@ -29,8 +30,9 @@ sudo chmod u+x .
 cd ~
 
 # add bash profile settings
-cat ~/bin/bash_profile_extender.sh >> ~/.bashrc
-source ~/.bashrc
+#cat ~/bin/bash_profile_extender.sh >> ~/.bashrc
+#source ~/.bashrc
+cat "source ~/bin/bash_profile_extender.sh" >> /home/formhub/.bashrc
 
 # create a directory for formhub
 mkdir site
