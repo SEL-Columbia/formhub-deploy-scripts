@@ -28,17 +28,19 @@ UNLOAD_DESTINATION="/home/formhub/Desktop/Unloaded Data"
 unload_2() {
   phone_id=$1
   search_str=$2
-  flag_str="--destination=/home/formhub/Desktop/Unloaded Data"
+  flag_str="--output-directory=\"$UNLOAD_DESTINATION\""
+  flag_str=""
   mkdir -p "$UNLOAD_DESTINATION"
   build_flagstr "Remove from ODK" "--remove-instances"
   build_flagstr "Preserve backup on sdcard" "--preserve-on-sdcard"
 #  build_flagstr "Unmount" "--unmount-drive"
   results=$($UNLOAD_PYSCRIPT_PATH --phone-id=$phone_id \
-        --drive-path=$drive_path $flag_str -D)
+        --drive-path=$drive_path --output-dir="$UNLOAD_DESTINATION" $flag_str)
   echo "$search_str" | grep "Unmount" > /dev/null
   if [ $? = 0 ]; then
     unmount_results=$(bu_unmount_odk_drive.sh $drive_path)
     results="$results\n\n$unmount_results"
+#     echo "skipping unmount"
   fi
   echo "results: $results"
 }
@@ -55,8 +57,8 @@ build_flagstr() {
 cancel_cronjob() {
   # the cronjob will continue to bug the user...
   # TODO: cancel the behavior somehow
-#  export IGNORE_ODK=1
-  echo "Cancelling"
+  export AUTOLAUNCH_ODK_UNLOADER=0
+  echo "Cancelling auto-import"
 }
 
 drive_path=$1
