@@ -1,4 +1,4 @@
-# network connection required
+# network connection with DNS required
 ping -c 1 google.com 2>&1 | grep unknown > /dev/null
 if [ $? -eq 0 ]
 then
@@ -15,6 +15,7 @@ sudo apt-get -qq install python-dev
 sudo apt-get -qq install python-setuptools
 sudo apt-get -qq install default-jre
 sudo apt-get -qq install dhcp3-server
+sudo apt-get -qq install openssh-server
 
 # install python pip installation tool
 sudo easy_install pip
@@ -46,15 +47,15 @@ cd formhub
 sudo pip install -r requirements.pip
 
 # set permissions and bootstrap
-sudo chown -R formhub:formhub *
-sudo chown formhub:formhub .
+sudo chown -R formhub:formhub * .
 sudo -u formhub python manage.py bootstrap -v0
 
 # sudo privileges to run server in screen
 echo 'formhub ALL=(ALL) NOPASSWD: /home/formhub/bin/run_server.sh' | sudo tee -a /etc/sudoers > /dev/null
 
 # install reverse ssh cron
-echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
+sudo -u formhub echo '*/3 * * * * /bin/bash /home/formhub/bin/reverse_ssh.sh >/dev/null 2>&1' | crontab
+sudo service cron restart
 
 # start server on boot
 sudo cp /home/formhub/bin/formhub_initd /etc/init.d/formhub
