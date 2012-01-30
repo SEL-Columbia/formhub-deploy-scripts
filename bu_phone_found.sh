@@ -23,11 +23,13 @@ unload_1() {
 }
 
 UNLOAD_PYSCRIPT_PATH="`which python` $FORMHUB_BIN_DIR/data_unloader/unload_from_phone.py "
+UNLOAD_DESTINATION="/home/formhub/Desktop/Unloaded Data"
 
 unload_2() {
   phone_id=$1
   search_str=$2
-  flag_str="--phone-id=$phone_id --drive-path=$drive_path"
+  flag_str="--destination=/home/formhub/Desktop/Unloaded Data"
+  mkdir -p "$UNLOAD_DESTINATION"
   build_flagstr "Remove from ODK" "--remove-instances"
   build_flagstr "Preserve backup on sdcard" "--preserve-on-sdcard"
 #  build_flagstr "Unmount" "--unmount-drive"
