@@ -21,7 +21,8 @@ check_for_mounted_drives() {
   fi
 }
 
-if [ $AUTOLAUNCH_ODK_UNLOADER = 1 ]; then
+AUTOLAUNCH_LOCKFILE="/home/formhub/bin/polling_for_odk_drive.lock"
+if [ ! -f $AUTOLAUNCH_LOCKFILE ]; then
   check_for_mounted_drives
 fi
 

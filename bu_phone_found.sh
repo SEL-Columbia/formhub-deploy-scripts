@@ -5,7 +5,10 @@ unload_0() {
       --title="ODK phone was found" \
       --text="Enter phone ID (or press cancel to ignore):")
   if [ $? = 0 ]; then
+    cancel_cronjob
+#    touch $AUTOLAUNCH_LOCKFILE
     unload_1 $phone_id
+#    rm $AUTOLAUNCH_LOCKFILE
   else
     cancel_cronjob
   fi
@@ -57,11 +60,13 @@ build_flagstr() {
 cancel_cronjob() {
   # the cronjob will continue to bug the user...
   # TODO: cancel the behavior somehow
-  export AUTOLAUNCH_ODK_UNLOADER=0
-  echo "Cancelling auto-import"
+#  export AUTOLAUNCH_ODK_UNLOADER=0
+  touch $AUTOLAUNCH_LOCKFILE
+#  echo "Cancelling auto-import"
 }
 
 drive_path=$1
 
+AUTOLAUNCH_LOCKFILE="/home/formhub/bin/polling_for_odk_drive.lock"
 unload_0
 
