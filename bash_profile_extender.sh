@@ -1,4 +1,4 @@
-export UNIQUE_ID=`ifconfig | grep ether | head -n1 | md5sum | cut -c 1-5`
+export UNIQUE_ID=`ifconfig | grep HWaddr | md5sum | cut -c1-6`
 SCRIPT_PATH=`readlink -f $0`
 export FORMHUB_BIN_DIR=$(dirname "$SCRIPT_PATH")
 export PATH="$PATH:$FORMHUB_BIN_DIR"
