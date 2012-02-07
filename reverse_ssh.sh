@@ -22,6 +22,7 @@ createTunnel() {
 ## Run the 'ls' command remotely.  If it returns non-zero, then create a new connection
 /usr/bin/ssh -p 19922 formhub@localhost ls
 if [ $? -ne 0 ]; then
+    UNIQUE_ID=$(cat /home/formhub/.formhub_unique_id)
     PORT_NUMBER=$(curl --silent http://linode.mvpafrica.org:8090/get_a_port?$UNIQUE_ID)
     if [ $PORT_NUMBER -ne -1 ]; then
         echo "Creating new SSH tunnel connection to port $PORT_NUMBER"
