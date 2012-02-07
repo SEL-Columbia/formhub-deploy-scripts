@@ -24,7 +24,7 @@ createTunnel() {
 if [ $? -ne 0 ]; then
     PORT_NUMBER=$(curl --silent http://linode.mvpafrica.org:8090/get_a_port?$UNIQUE_ID)
     if [ $PORT_NUMBER -ne -1 ]; then
-        echo Creating new tunnel connection
+        echo "Creating new SSH tunnel connection to port $PORT_NUMBER"
         createTunnel $PORT_NUMBER
     fi
 fi
